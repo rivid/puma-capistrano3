@@ -2,7 +2,7 @@
 lock '3.1.0'
 
 set :application, 'my_app_name'
-set :repo_url, 'git@example.com:me/my_repo.git'
+set :repo_url, 'git@example.com:/path/to/my_repo.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
@@ -44,6 +44,7 @@ namespace :deploy do
     end
   end
 
+  after :restart, :'puma:restart'    #添加此项重启puma
   after :publishing, :restart
 
   after :restart, :clear_cache do
